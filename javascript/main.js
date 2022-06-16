@@ -18,29 +18,25 @@ function button1(){
     textRaw = textRaw.replace("\r", " ");
 
     if (punkt){
-        textRaw = textRaw.replace(". ", ". \r");
-        textRaw = textRaw.replace("? " , "? \r");
-        textRaw = textRaw.replace("?" , "? \r");
-        textRaw = textRaw.replace("! ", "! \r");
-        textRaw = textRaw.replace("!", "! \r");
+        textRaw = textRaw.replace(/\./g, ". \r");
+        textRaw = textRaw.replace(/\?/g , "? \r");
+        textRaw = textRaw.replace(/!/g, "! \r");
     }
 
     if(komma){
-        textRaw = textRaw.replace(", ", ", \r");
-        textRaw = textRaw.replace(",", ", \r");
+        textRaw = textRaw.replace(/,/g, ", \r");
     }
 
     if(und){
-        textRaw = textRaw.replace(" und ", "\rund ");
+        textRaw = textRaw.replace(/\sund\s/g, "\rund ");
     }
 
     if(oder){
-        textRaw = textRaw.replace(" oder ", "\roder ");
+        textRaw = textRaw.replace(/\soder\s/g, "\roder ");
     }
 
     if(dpunkt){
-        textRaw = textRaw.replace(": ", ": \r" );
-        textRaw = textRaw.replace(":",":\r");
+        textRaw = textRaw.replace(/:/g, ": \r" );
     }
 
 
