@@ -1,0 +1,47 @@
+.body{
+    display: grid;
+}
+
+.mid{
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    margin-left: 5%;
+    margin-right:5%;
+    min-height: 500px;
+    height:500px;
+    max-height: 500px;
+}
+
+.textfield{
+    min-height: 300px;
+    min-width: 500px;
+    max-height: inherit;
+}
+
+.spalte{
+    border-width: 1px;
+    border-style: solid;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 5px;
+    max-height: inherit;
+}
+
+.listBox{
+    display: inline;
+    grid-template-rows: 10% 90%;
+    border-width: 1px;
+    border-style: solid;
+    border-left-width: 0px;
+    max-height: 500px;
+}
+.listButtons{
+    display: grid;
+    padding: 10px;
+}
+
+.liste{
+    overflow: hidden;
+    overflow-y: scroll;
+    
+}
