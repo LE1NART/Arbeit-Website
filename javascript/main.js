@@ -1,4 +1,4 @@
-function segmentieren(){
+function button1(){
     //werte der Checkboxen ziehen und in Variablen speichern
     const punkt = document.getElementById("punkt").checked;
     const komma = document.getElementById("komma").checked;
@@ -44,4 +44,3 @@ function segmentieren(){
 
     document.getElementById("textfield").value = textRaw;
 }
-
