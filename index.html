@@ -44,72 +44,22 @@
             </div>
             <button onclick="segmentieren()">Segmentieren</button>
         </div>
-        <div class="listBox">
-            <div class="listButtons">
-                <button onclick="addList()">Hinzufügen</button>
-                <button onclick="deleteList()">Löschen</button>
-            </div>
-            <ul class="liste">
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
+        <div class="listBox"> 
+                <input type="Text" class="listeel" id="input" >
+                <button onclick="addList()" class="listeel">Hinzufügen
+                </button>
+                <button onclick="deleteList()" class="listeel">Löschen</button>
+            
+            <ul class="liste" id="liste">
+               
             </ul>
 
+        </div>
+        <div class="popup" id="myPopupAdd">
+            <span class="popuptext" >Dieses Element ist schon vorhanden!</span>
+        </div>
+        <div class="popup" id="myPopupDel">
+            <span class="popuptext" >Dieses Element ist nicht vorhanden!</span>
         </div>
     </div>
 </body>

@@ -45,3 +45,50 @@ function segmentieren(){
     document.getElementById("textfield").value = textRaw;
 }
 
+function addList(input = document.getElementById("input").value){
+    //Hinzufügen zu der Liste
+    const list = document.getElementById("liste");
+
+    if(document.getElementById(input) === null && input !== ""){
+        //create new list element
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(input));
+        li.setAttribute("id",input);
+        
+        list.appendChild(li);
+    }
+    else{
+        //soll ein popup erzeugen, welches sagt, dass das element bereits vorhanden ist
+        var popup = document.getElementById("myPopupAdd");
+        popup.style.visibility = 'visible';
+        setTimeout("hide()", 2000, popup);
+    }
+}
+
+function hide(popup){
+    popup.style.visibility = 'hidden';
+}
+
+function deleteList(){
+    const list = document.getElementById("liste");
+    const input = document.getElementById("input").value;
+
+    if(document.getElementById(input) !== null){
+        var li = document.getElementById(input)
+        list.removeChild(li);
+    }
+    else{
+        var popup = document.getElementById("myPopupDel");
+        popup.style.visibility = 'visible';
+        setTimeout("hide()", 2000, popup);
+    }
+
+
+}
+
+function onStart(){
+    const abkz = []
+    abkz.forEach(element => {
+        
+    });
+}

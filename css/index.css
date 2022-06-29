@@ -9,13 +9,12 @@
     margin-right:5%;
     min-height: 500px;
     height:500px;
-    max-height: 500px;
 }
 
 .textfield{
     min-height: 300px;
     min-width: 500px;
-    max-height: inherit;
+    height: inherit;
 }
 
 .spalte{
@@ -24,24 +23,43 @@
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     padding: 5px;
-    max-height: inherit;
+    height: 500px;
 }
 
 .listBox{
-    display: inline;
-    grid-template-rows: 10% 90%;
+    display: grid;
+    grid-template-rows: 5% 5% 5% 80%;
     border-width: 1px;
     border-style: solid;
     border-left-width: 0px;
+    padding: 5px;
     max-height: 500px;
-}
-.listButtons{
-    display: grid;
-    padding: 10px;
 }
 
 .liste{
     overflow: hidden;
-    overflow-y: scroll;
-    
+    overflow-y: scroll;    
 }
+.listeel{
+    margin: 2px;
+}
+
+.popup{
+    visibility: hidden;
+    width: 160px;
+    height: 45px;
+    font-size: larger;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0px;
+    right:0px;
+    top: 30px;
+  }
+
