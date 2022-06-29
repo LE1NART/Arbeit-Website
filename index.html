@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="javascript/main.js"></script>
 
 
@@ -36,13 +36,30 @@
             </div>
             <div>
                 <input type="checkbox" id="klammer">
-                <label for="klammer">Klammer</label>
+                <label for="klammer">Klammer (nocht nicht Fertig)</label>
             </div>
             <div>
                 <input type="checkbox" id="abkz">
                 <label for="abkz">Abkürzungen</label>
             </div>
-            <button onclick="button1()">Segmentieren</button>
+            <button onclick="segmentieren()">Segmentieren</button>
+        </div>
+        <div class="listBox"> 
+                <input type="Text" class="listeel" id="input" >
+                <button onclick="addList()" class="listeel">Hinzufügen
+                </button>
+                <button onclick="deleteList()" class="listeel">Löschen</button>
+            
+            <ul class="liste" id="liste">
+               
+            </ul>
+
+        </div>
+        <div class="popup" id="myPopupAdd">
+            <span class="popuptext" >Dieses Element ist schon vorhanden!</span>
+        </div>
+        <div class="popup" id="myPopupDel">
+            <span class="popuptext" >Dieses Element ist nicht vorhanden!</span>
         </div>
     </div>
 </body>
