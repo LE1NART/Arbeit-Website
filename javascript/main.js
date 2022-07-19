@@ -55,9 +55,87 @@ function segmentieren(){
         //
     }
 
+    if(klammer){
+        if (testBrackets(textRaw)){
+            let array = [];
+            let matches = textRaw.matchAll(/\(/g);
+            for(const match of matches){
+                array.push([match[0],match.index]);
+            }
+            matches = textRaw.matchAll(/\)/g);
+            for(const match of matches){
+                array.push([match[0],match.index]);
+            }
+            //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+            array = array.sort(function(a,b){return a[1]-b[1];});
+            
+            
+            while (array.length > 0){
+                let bool = false;
+                let c = 0;
+                while( bool === false) {
+                    let a = array[c];
+                    console.log(a);
+                    if(a[0] === ')'){
+                        let start= array[c-1][1];
+                        let end = array[c][1];
+                        array.splice(c,1);
+                        array.splice(c-1,1);
+                        textRaw = cut(textRaw,start,end);
+                        bool = true;
+                    }
+                    c = c+1;
+                }
+            }
+        }
+        else{
+            var popup = document.getElementById("myPopupKlammer");
+            popup.style.visibility = 'visible';
+            console.log(popup)
+            console.log(typeof(popup))
+            setTimeout(hide, 3500, document.getElementById("myPopupKlammer"));
+        }
+    }
+
 
     document.getElementById("textfield").value = textRaw;
 }
+
+function cut(str,start,end){
+    const beg = str.slice(0,start);
+    const rest = str.slice(end+1,str.length+1);
+    const copy = str.slice(start,end+1);
+
+    let newStr = String.raw`${beg}${rest}`;
+    console.log(String.raw`${newStr}`);
+    let matches = newStr.matchAll("\r");
+    let array = [];
+    for(const match of matches){
+        array.push([match[0],match.index]);
+    }
+    console.log(array);
+    for(let match in array){
+        if(array[match][1] > start+1 && array[match][1] > end-copy.length){
+            console.log(copy);
+            let output = [newStr.slice(0,array[match][1])+"\n",copy,newStr.slice(array[match][1])].join('');
+            output = output.slice(0,start)+"[]"+output.slice(start);
+            return output;
+        }
+    }
+    return "Da ist was schiefgegangen."
+
+}
+
+function testBrackets(str) {
+    var chksum = 0;
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == "(") chksum++
+        if (str[i] == ")") chksum--;
+        if (chksum < 0) return false;
+        }
+    return (chksum == 0);
+}
+
 
 function addList(input = document.getElementById("input").value){
     //Hinzufügen zu der Liste
