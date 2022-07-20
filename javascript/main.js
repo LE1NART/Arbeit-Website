@@ -55,9 +55,99 @@ function segmentieren(){
         //
     }
 
+    if(klammer){
+        //Wenn die Klammerung nicht korrekt ist gehen wir in den Else Case
+        if (testBrackets(textRaw)){
+            let array = findBrackets(textRaw); // in diesem Array speichern wir alle Klammern und ihre Position
+            
+            //Solange der Array noch Elemente hat gehen wir ihn immer wieder durch
+            while (array.length > 0){
+                //abbruch bedingung für zweite while schleife
+                let bool = false;
+                // integer um durch den Array in zweiter schleife zu iterieren
+                let c = 0;
+                while( bool === false) {
+                    if(array[c][0] === ')'){
+                        let start= array[c-1][1];
+                        let end = array[c][1];
+                        textRaw = cut(textRaw,start,end);
+                        bool = true;
+                    }
+                    c = c+1;
+                }
+                array = findBrackets(textRaw);
+            }
+            textRaw = textRaw.replaceAll("§","[(");
+            textRaw = textRaw.replaceAll("@",")]");
+        }
+        else{
+            var popup = document.getElementById("myPopupKlammer");
+            popup.style.visibility = 'visible';
+            setTimeout(hide, 3500, document.getElementById("myPopupKlammer"));
+        }
+    }
+
 
     document.getElementById("textfield").value = textRaw;
 }
+
+function findBrackets(textRaw){ //-> array mit allen Klammern sortiert nach position
+    let array = []; // in diesem Array speichern wir alle Klammern und ihre Position
+    let matches = textRaw.matchAll(/\(/g);
+    for(const match of matches){
+        array.push([match[0],match.index]);
+    }
+    matches = textRaw.matchAll(/\)/g);
+    for(const match of matches){
+        array.push([match[0],match.index]);
+    }
+    //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    //Array wird sortiert
+    array = array.sort(function(a,b){return a[1]-b[1];});
+
+    return array;
+}
+
+function cut(str,start,end){
+    const beg = str.slice(0,start);
+    const rest = str.slice(end+1,str.length+1);
+    let copy = str.slice(start,end+1);
+    copy = copy.replace("(", "§");
+    copy = copy.replace(")", "@");
+
+    let newStr = String.raw`${beg}${rest}`;
+    console.log(String.raw`${newStr}`);
+    let array = [];
+    let matches = newStr.matchAll("\r");
+    for(const match of matches){
+        array.push([match[0],match.index]);
+    }
+    matches = newStr.matchAll("\n");
+    for(const match of matches){
+        array.push([match[0],match.index]);
+    }
+    array = array.sort(function(a,b){return a[1]-b[1];});
+    for(let match in array){
+        if(array[match][1] > start+1 && array[match][1] > end-copy.length){
+            let output = [newStr.slice(0,array[match][1])+"\n",copy,newStr.slice(array[match][1])].join('');
+            output = output.slice(0,start)+"[]"+output.slice(start);
+            return output;
+        }
+    }
+    return "Da ist was schiefgegangen."
+
+}
+
+function testBrackets(str) {
+    var chksum = 0;
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == "(") chksum++
+        if (str[i] == ")") chksum--;
+        if (chksum < 0) return false;
+        }
+    return (chksum == 0);
+}
+
 
 function addList(input = document.getElementById("input").value){
     //Hinzufügen zu der Liste
