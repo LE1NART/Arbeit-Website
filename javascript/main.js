@@ -11,118 +11,111 @@ function segmentieren(){
 
     //text ziehen und als rawText umwandeln
     let text = document.getElementById("textfield").value;
-    let textRaw = String.raw`${document.getElementById("textfield").value}`;
+    let textRaw = String.raw`${document.getElementById("textfield").value} `;
+
     
-    textRaw = textRaw.replace("\r\n", " ");
-    textRaw = textRaw.replace("\n", " ");
-    textRaw = textRaw.replace("\r", " ");
+    
+    textRaw = textRaw.replaceAll("\r\n", " ");
+    textRaw = textRaw.replaceAll("\n", " ");
+    textRaw = textRaw.replaceAll("\r", " ");
 
     if (punkt){
-        textRaw = textRaw.replace(/\. /g, ". \r");
-        textRaw = textRaw.replace(/\?/g , "?\r");
-        textRaw = textRaw.replace(/!/g, "!\r");
-        textRaw = textRaw.replace("?\r " , "?\r");
-        textRaw = textRaw.replace("!\r ", "!\r");
+        textRaw = textRaw.replace(/\. /g, ". \n");
+        textRaw = textRaw.replace(/\?/g , "?\n");
+        textRaw = textRaw.replace(/!/g, "!\n");
+        textRaw = textRaw.replaceAll("?\n " , "?\n");
+        textRaw = textRaw.replaceAll("!\n ", "!\n");
     }
 
     if(komma){
-        textRaw = textRaw.replace(/,/g, ",\r");
-        textRaw = textRaw.replace(",\r ", ",\r");
+        textRaw = textRaw.replace(/,/g, ",\n");
+        textRaw = textRaw.replaceAll(",\n ", ",\n");
     }
 
     if(und){
-        textRaw = textRaw.replace(/\sund\s/g, "\rund ");
-        textRaw = textRaw.replace(/\sUnd\s/g, "\rUnd ");
+        textRaw = textRaw.replace(/\sund\s/g, "\nund ");
+        textRaw = textRaw.replace(/\sUnd\s/g, "\nUnd ");
     }
 
     if(oder){
-        textRaw = textRaw.replace(/\soder\s/g, "\roder ");
-        textRaw = textRaw.replace(/\sOder\s/g, "\rOder ");
+        textRaw = textRaw.replace(/\soder\s/g, "\noder ");
+        textRaw = textRaw.replace(/\sOder\s/g, "\nOder ");
     }
 
     if(dpunkt){
-        textRaw = textRaw.replace(/:/g, ":\r" );
-        textRaw = textRaw.replace(":\r ", ":\r" );
+        textRaw = textRaw.replace(/:/g, ":\n" );
+        textRaw = textRaw.replaceAll(":\n ", ":\n" );
     }
+
+    if(klammer){
+            //Wenn die Klammerung nicht korrekt ist gehen wir in den Else Case
+            if (testBrackets(textRaw)){
+                textRaw = segBrackets(textRaw,0);
+            }
+            else{
+                if(confirm("Die Klammerung dieses Textes ist nicht korrekt, soll die Segmentierung der Klammern trotzdem durchgeführt? Dies kann allerdings zu einer fehlerhaften Segmentierung führen.")){
+                    textRaw = segBrackets(textRaw,0);
+                }
+            }
+        }
 
     if(!abkz){
         const list = document.getElementById("liste");
         for (let i = 0; i < list.children.length; i++) {
             var snippet = list.children[i].id;
-            var re = new RegExp("\\s"+snippet+"\\s\\r", "g");
+            var re = new RegExp("\\s"+snippet+"\\s\\n", "g");
             textRaw = textRaw.replace(re, " "+snippet+" ")
           }
         //
     }
 
-    if(klammer){
-        //Wenn die Klammerung nicht korrekt ist gehen wir in den Else Case
-        if (testBrackets(textRaw)){
-            let array = findBrackets(textRaw); // in diesem Array speichern wir alle Klammern und ihre Position
-            
-            //Solange der Array noch Elemente hat gehen wir ihn immer wieder durch
-            while (array.length > 0){
-                //abbruch bedingung für zweite while schleife
-                let bool = false;
-                // integer um durch den Array in zweiter schleife zu iterieren
-                let c = 0;
-                while( bool === false) {
-                    if(array[c][0] === ')'){
-                        let start= array[c-1][1];
-                        let end = array[c][1];
-                        textRaw = cut(textRaw,start,end);
-                        bool = true;
-                    }
-                    c = c+1;
-                }
-                array = findBrackets(textRaw);
-            }
-            textRaw = textRaw.replaceAll("§","[(");
-            textRaw = textRaw.replaceAll("@",")]");
-        }
-        else{
-            var popup = document.getElementById("myPopupKlammer");
-            popup.style.visibility = 'visible';
-            setTimeout(hide, 3500, document.getElementById("myPopupKlammer"));
-        }
-    }
+    
 
 
     document.getElementById("textfield").value = textRaw;
 }
 
-function findBrackets(textRaw){ //-> array mit allen Klammern sortiert nach position
-    let array = []; // in diesem Array speichern wir alle Klammern und ihre Position
-    let matches = textRaw.matchAll(/\(/g);
-    for(const match of matches){
-        array.push([match[0],match.index]);
-    }
-    matches = textRaw.matchAll(/\)/g);
-    for(const match of matches){
-        array.push([match[0],match.index]);
-    }
-    //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    //Array wird sortiert
-    array = array.sort(function(a,b){return a[1]-b[1];});
+function segBrackets(str,start, array = []){
+    for(let i =start; i <= str.length; i++){
+        if(str[i] == '('){
+            array.push(['(',i]);
+        }
+        if(str[i] == ')'){
+            let el = array.pop();
+            let cutBack = str;
+            if(el !== undefined){
+                cutBack = cut(str,el[1],i);
+            }
+            let back = segBrackets(cutBack, i,array);
+            back = back.replace("§@", "[(");
+            back = back.replace("@§", ")]");
+            return back;
+        }
 
-    return array;
+    }
+    return str;
+
 }
+
 
 function cut(str,start,end){
     const beg = str.slice(0,start);
     const rest = str.slice(end+1,str.length+1);
     let copy = str.slice(start,end+1);
-    copy = copy.replace("(", "§");
-    copy = copy.replace(")", "@");
+    copy = copy.replace("(", "§@");
+    copy = copy.replace(")", "@§");
 
     let newStr = String.raw`${beg}${rest}`;
-    console.log(String.raw`${newStr}`);
     let array = [];
     let matches = newStr.matchAll("\r");
     for(const match of matches){
         array.push([match[0],match.index]);
     }
     matches = newStr.matchAll("\n");
+    for(const match of matches){
+        array.push([match[0],match.index]);
+    }
+    matches = newStr.matchAll("\r\n");
     for(const match of matches){
         array.push([match[0],match.index]);
     }
