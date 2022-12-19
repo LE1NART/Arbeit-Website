@@ -1,47 +1,120 @@
-.body{
-    display: grid;
+body{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+
+  padding-left: 75px;
+  padding-right: 75px;
 }
 
-.mid{
-    display: grid;
-    grid-template-columns: 4fr 1fr 1fr;
-    margin-left: 5%;
-    margin-right:5%;
-    min-height: 500px;
-    height:500px;
+
+header{
+  display:grid;
+  grid-template-columns: 10% 70% 20%;
+  grid-template-rows: 100%;
+  max-height: 150px;
+
+  grid-template-areas: "logo . nav";
+}
+
+img{
+
+  max-height: 100%;
+  grid-area: logo;
+}
+
+nav{
+grid-area: nav;
+}
+
+
+
+#content{
+  height:65vh;
+
+  display:grid;
+
+  grid-template-columns: 80% 10% 10%;
+  grid-template-rows: 5% 95%;
+
+  grid-template-areas: 
+  "textfield hideButton ."
+  "textfield options abkz"
+  ;
 }
 
 .textfield{
-    min-height: 300px;
-    min-width: 500px;
-    height: inherit;
+  grid-area: textfield;
+}
+
+#hideButton{
+  --status:show;
+
+  background-color: white;
+  border: none;
+
+  display:flex;
+
+  grid-area: hideButton;
 }
 
 .spalte{
-    border-width: 1px;
-    border-style: solid;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    padding: 5px;
-    height: 500px;
+  grid-area: options;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+
 }
 
 .listBox{
-    display: grid;
-    grid-template-rows: 5% 5% 5% 80%;
-    border-width: 1px;
-    border-style: solid;
-    border-left-width: 0px;
-    padding: 5px;
-    max-height: 500px;
+  grid-area: abkz;
+
+  display:flex;
+  gap: 5px;
+  flex-direction: column;
 }
 
 .liste{
-    overflow: hidden;
-    overflow-y: scroll;    
+  overflow-y: scroll;
 }
-.listeel{
-    margin: 2px;
+
+#wordCount{
+  display: none;
+}
+
+.wordCount{
+  grid-area: count;
+
+  display:flex;
+  flex-direction: column;
+}
+
+#countTableBox{
+  overflow-y: scroll;
+}
+
+#countTable{
+  width: 100%;
+  text-align: center;
+  
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+#hideCountButton{
+  background-color: white;
+  border: none;
+
+  display:flex;
+  justify-content: flex-end;
+}
+
+.buttons{
+  display:flex;
+  flex-direction: column;
+  gap:10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup{
@@ -81,4 +154,3 @@
     right:0px;
     top: 30px;
   }
-
