@@ -163,7 +163,6 @@ function addList(input = document.getElementById("input").value){
 }
 
 function hide(popup){
-    console.log(popup)
     popup.style.visibility = 'hidden';
 }
 
@@ -184,6 +183,158 @@ function deleteList(){
     }
 
 
+}
+
+function changeDisplay(){
+    let divs = document.getElementsByClassName("showHide");
+    let but = document.getElementById("hideButton");
+    let buts = getComputedStyle(but);
+
+    for (div of divs){
+        if(div.style.display == "none"){
+            div.style.display = "";
+        }
+        else{
+        div.style.display = "none";
+        }
+    };
+
+    if(buts.getPropertyValue('--status') == "show"){
+        but.style.setProperty('--status', 'hide');
+        document.getElementById("content").style.gridTemplateAreas = '"textfield textfield hideButton" "textfield textfield .';
+        document.getElementById("buttonIcon").innerHTML="keyboard_double_arrow_left";
+    }
+    else{
+        but.style.setProperty('--status', 'show');
+        document.getElementById("content").style.gridTemplateAreas = '"textfield hideButton ." "textfield options abkz"';
+        document.getElementById("buttonIcon").innerHTML="keyboard_double_arrow_right";
+    }
+}
+
+function presentCount(anzahl, liste){
+    let otherEl = document.getElementsByClassName("countHide");
+    for(el of otherEl){
+        el.style.display = "none";
+    }
+   
+    document.getElementById("wordCount").style.display = "flex";
+
+    document.getElementById("content").style.gridTemplateAreas = '"textfield count count" "textfield count count"';
+
+
+    let table = document.getElementById("countTable");
+    let row = table.insertRow();
+    let c1 = row.insertCell(0);
+    let c2 = row.insertCell(1);
+
+    c1.innerHTML = "Gesamt";
+    c2.innerHTML = anzahl;
+
+    for(item of liste){
+        	let row = table.insertRow();
+            let c1 = row.insertCell(0);
+            let c2 = row.insertCell(1);
+
+            c1.innerHTML = item[0];
+            c2.innerHTML = item[1];
+    }
+}
+
+function hideCount(){
+    let otherEl = document.getElementsByClassName("countHide");
+    for(el of otherEl){
+        el.style.display = "";
+    }
+    document.getElementById("buttonIcon").innerHTML="keyboard_double_arrow_right";
+
+    document.getElementById("wordCount").style.display = "none";
+
+    document.getElementById("content").style.gridTemplateAreas = '"textfield hideButton ." "textfield options abkz"';
+
+
+}
+
+function segmentCSV(){
+    let a = document.createElement("a");
+    let text = document.getElementById("textfield").value;
+    a.href = window.URL.createObjectURL(new Blob([text], {type: "text/plain"}));
+    a.download = "segment.csv";
+    a.click();
+}
+
+function segmentTXT(){
+    let a = document.createElement("a");
+    let text = document.getElementById("textfield").value;
+    a.href = window.URL.createObjectURL(new Blob([text], {type: "text/plain"}));
+    a.download = "segment.txt";
+    a.click();
+}
+
+function countCSV(){
+    let result = counting();
+    let anzahl = result[0];
+    let liste = result[1];
+
+    let text = "Gesamt;"+anzahl;
+
+    for(el of liste){
+        text = text+"\n"+el.join(';')
+    }
+
+    let a = document.createElement("a");
+    a.href = window.URL.createObjectURL(new Blob([text], {type: "text/plain"}));
+    a.download = "count.csv";
+    a.click();
+}
+
+function countWords(){
+    let result = counting();
+    presentCount(result[0],result[1]);
+}
+
+
+function counting(){
+    let wordCount = 0;
+    let count =[];
+
+    let text = document.getElementById("textfield").value;
+    text = normalizeText(text);
+
+    let textArray = text.split(" ");
+    textArray = textArray.filter(text => text != '');
+    
+    for(let e of textArray){
+        wordCount +=1;
+        let excist = false;
+        for(let c of count){
+            if(c[0] == e){
+                c[1] = c[1]+1;
+                excist = true;
+                break
+            }
+        }
+        if(excist == false){
+            count.push([e,1]);
+        }
+    }
+
+    count.sort(function(a,b){return b[1]-a[1]})
+
+    console.log(textArray);
+    console.log(count);
+
+    return [wordCount, count]
+}
+
+function normalizeText(text){
+    text = text.replace(/\,/g, "");
+    text = text.replace(/\./g, "");
+    text = text.replace(/\(/g, "");
+    text = text.replace(/\)/g, "");
+    text = text.replace(/\:/g, "");
+    text = text.replace(/\;/g, "");
+    text = text.toLowerCase();
+    return text;
 }
 
 window.onload = function onStart(){
