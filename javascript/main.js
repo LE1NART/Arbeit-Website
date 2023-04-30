@@ -43,7 +43,7 @@ function segmentieren(){
     }
 
     if(dpunkt){
-        textRaw = textRaw.replace(/:/g, ":\n" );
+        textRaw = textRaw.replace(/: /g, ": \n" );
         textRaw = textRaw.replaceAll(":\n ", ":\n" );
     }
 

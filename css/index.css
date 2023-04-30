@@ -2,7 +2,10 @@ body{
   display: flex;
   flex-direction: column;
   gap:10px;
+  margin:0px;
+}
 
+body > *{
   padding-left: 75px;
   padding-right: 75px;
 }
@@ -15,6 +18,7 @@ header{
   max-height: 150px;
 
   grid-template-areas: "logo . nav";
+  background-color: rgb(237, 237, 237);
 }
 
 img{
@@ -25,11 +29,26 @@ img{
 
 nav{
 grid-area: nav;
+
+display:flex;
+justify-content: center;
+align-items: center;
+gap:10px;
 }
 
+nav a{
+  font-family: 'Open Sans', sans-serif;;
+  size:16px;
+  color: rgb(17, 72, 113);
+  background-color: rgb(207, 218, 227);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom:5px;
+  text-decoration: none;
+}
 
-
-#content{
+.content{
   height:65vh;
 
   display:grid;
@@ -42,6 +61,22 @@ grid-area: nav;
   "textfield options abkz"
   ;
 }
+
+/* Überschreibe content Klasse für index Seite*/
+#contentIndex{
+  height:65vh;
+  display:flex;
+
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+}
+
+#contentIndex :hover{
+  background-color: rgb(237, 237, 237);
+  border-radius: 40px;
+}
+
 
 .textfield{
   grid-area: textfield;
@@ -117,6 +152,38 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   align-items: center;
 }
 
+/* Ab hier mehrfach Segmentierseite spezifische Dinge*/
+#multiSpace{
+  grid-area: textfield;
+  display: flex;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+#entrySpace,#resultSpace{
+  flex-grow: 3;
+  border:solid;
+}
+
+#convertSpace{
+  flex-grow:1;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Für die Startseite*/
+.largeIcon{
+  font-size: 250px !important;
+  color:rgb(17, 72, 113);
+}
+.largeIcon :visited{
+  color: rgb(17, 72, 113);
+}
+
+/* Genrelle Popups*/
 .popup{
     visibility: hidden;
     width: 160px;
