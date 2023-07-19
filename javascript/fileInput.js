@@ -3,7 +3,8 @@ const input = document.getElementById("file");
 input.addEventListener("change", addToInputList);
 
 //File list for InputElement and drag and drop
-const userFiles = [];
+const userFilesInput = [];
+const userFilesExport = [];
 
 //adding the Files from the Input element to our own UserFile list
 function addToInputList(){
@@ -11,7 +12,7 @@ function addToInputList(){
     if(curFiles.length != 0){
         for(const file of curFiles) {
             if(checkIfExists(file.name) == false){
-                userFiles.push(file) 
+                userFilesInput.push(file) 
                 addVisualInputListElement(file)
             }
         }
@@ -33,7 +34,7 @@ function dropHandler(ev){
             if(file.type === "text/plain"){
                 console.log(file)
                 if(checkIfExists(file.name) == false){
-                    userFiles.push(file) 
+                    userFilesInput.push(file) 
                     addVisualInputListElement(file)
                 }
             }
@@ -44,7 +45,7 @@ function dropHandler(ev){
 
 //checks if the file already exists in FileList
 function checkIfExists(name){
-    for(let file of userFiles){
+    for(let file of userFilesInput){
         if(file.name == name){
             return true
         }
@@ -86,9 +87,9 @@ function deleteInputListElement(button){
     for(let child of listItem.children){
         if(child.tagName =="P" || child.tagName == "p"){
             let fileName = child.textContent;
-            for(const[index,element] of userFiles.entries()){
+            for(const[index,element] of userFilesInput.entries()){
                 if(element.name == fileName){
-                    userFiles.splice(index,1);
+                    userFilesInput.splice(index,1);
                 }
             }
             //remove the visuell list element from html list
@@ -140,7 +141,7 @@ async function start(){
     - {status:"fulfilled", value:result} for successful responses,
     - {status:"rejected", reason:error} for errors.
     */
-    let results = await Promise.allSettled(userFiles.map(file =>reader(file)));
+    let results = await Promise.allSettled(userFilesInput.map(file =>reader(file)));
 
     //now for every result
     results.forEach((result,num) =>{
@@ -153,7 +154,7 @@ async function start(){
         }
         if(result.status == "rejected"){
             //if it does not work we get an alert
-            alert(`${userFiles[num].name} hat nicht geklappt aufgrund ${result.reason}`);
+            alert(`${userFilesInput[num].name} hat nicht geklappt aufgrund ${result.reason}`);
         }
     })
 }

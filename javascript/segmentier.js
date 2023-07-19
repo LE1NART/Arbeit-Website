@@ -144,13 +144,4 @@ function testBrackets(str) {
     return (chksum == 0);
 }
 
-function normalizeText(text){
-    text = text.replace(/\,/g, "");
-    text = text.replace(/\./g, "");
-    text = text.replace(/\(/g, "");
-    text = text.replace(/\)/g, "");
-    text = text.replace(/\:/g, "");
-    text = text.replace(/\;/g, "");
-    text = text.toLowerCase();
-    return text;
-}
+
