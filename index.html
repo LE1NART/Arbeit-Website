@@ -7,100 +7,27 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-    <script src="javascript/main.js"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <header>
-        <a href="https://www.uni-potsdam.de/de/physikdidaktik/willkommen"><img src="media/logo.jpg" alt="Logo" id="logo"></a>
+        <a href="https://www.uni-potsdam.de/de/physikdidaktik/willkommen"><img src="media/logo_grey.jpg" alt="Logo" id="logo"></a>
         <nav>
-
+            <a href="/index.html">Start</a>
+            <a href="/solo.html">Einzel</a>
+            <a href="/multi.html">Mehrzahl</a>
         </nav>
     </header>
-
-    <div class="content" id="content">
-        <textarea class ="textfield" type="text" id="textfield"></textarea>
-        
-            <button onclick="changeDisplay()" id="hideButton"><span class="material-symbols-outlined countHide" id="buttonIcon">
-                keyboard_double_arrow_right
-                </span></button>
-            
-                <div class="spalte showHide countHide" id="textOptions">
-                    <div class="item">
-                        <input type="checkbox" id="punkt"> 
-                        <label for="punkt">Punkte(+?,!)</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="komma">
-                        <label for="komma">Komma</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="und">
-                        <label for="und">und</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="oder">
-                        <label for="oder">oder</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="dpunkt">
-                        <label for="dpunkt">Doppelpunkt</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="klammer">
-                        <label for="klammer">Klammer </label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="abkz">
-                        <label for="abkz">Abkürzungen</label>
-                    </div>
-                
-                </div>
-                <div class="listBox showHide countHide" id="abkrz"> 
-                        <input type="Text" class="listeel" id="input" >
-                        <button onclick="addList()" class="listeel" id="addButtonList">Hinzufügen
-                        </button>
-                        <button onclick="deleteList()" class="listeel" id="delButtonList">Löschen</button>
-                    
-                    <ul class="liste" id="liste">
-                    
-                    </ul>
-
-                </div>       
-                <div class="wordCount" id="wordCount">
-                    <button onclick="hideCount()" id="hideCountButton"><span class="material-symbols-outlined" id="buttonCountIcon">
-                        close
-                    </span></button>
-                    <div id="countTableBox">
-                    <table id="countTable">
-                        <tr><th>Wort</th><th>Anzahl</th></tr>
-                    </table>
-                    </div>
-                </div>
-        
+    <div class="content" id="contentIndex">
+        <a href="/solo.html"><span class="largeIcon material-symbols-outlined" id="largeIcon1">
+            move_down
+            </span></a>
+        <a href="/multi.html"><span class="largeIcon material-symbols-outlined" id="largeIcon2">
+            filter_9_plus
+            </span></a>
     </div>
-    <div class="buttons">
-        <div id="segmentButtons">
-        <button onclick="segmentieren()">Segmentieren</button>
-        <button onclick="segmentCSV()">save as .csv</button>
-        <button onclick="segmentTXT()">save as .txt</button>
-        </div>
-        <div id="countButtons">
-        <button onclick="countWords()">count</button>
-        <button onclick="countCSV()">save as .csv</button>
-        </div>
-    </div>
-    
-    <div class="popup" id="myPopupAdd">
-            <span class="popuptext" >Dieses Element ist schon vorhanden!</span>
-    </div>
-    <div class="popup" id="myPopupDel">
-            <span class="popuptext" >Dieses Element ist nicht vorhanden!</span>
-    </div>
-    <div class="Klammer" id="myPopupKlammer">
-            <span class="popuptext" >Die Klammerung in diesem Text ist nicht korrekt. Die Segmentierung der Klammern kann nicht erfolgen.</span>
-    </div>    
-    
 </body>
 </html>
