@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=#, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/inputStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <script src="javascript/main.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <header>
@@ -25,26 +26,18 @@
         
     <div class="content" id="content">
         <div id="multiSpace">
-            <div id="entrySpace">
-                <ul>
-                    <li>Test1</li>
-                    <li>Test1</li>
-                    <li>Test1</li>
-                    <li>Test1</li>
-                </ul>
+            <div id="inputArea" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);">
+                <input type="file" accept=".txt" multiple="true" name="file" id="file" class="inputfile">
+                <label for="file">Choose a File</label>
+                <ul id="listeInput"></ul>
             </div>
             <div id="convertSpace">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined" onclick="segmentAll()">
                     start
                     </span>
             </div>
-            <div id="resultSpace">
-                <ul>
-                    <li>Test1</li>
-                    <li>Test1</li>
-                    <li>Test1</li>
-                    <li>Test1</li>
-                </ul>
+            <div id="outputArea">
+                <ul id="listeOutput"></ul>
             </div>
 
         </div>        
@@ -108,17 +101,7 @@
                
         
     </div>
-    <div class="buttons">
-        <div id="segmentButtons">
-        <button onclick="segmentieren()">Segmentieren</button>
-        <button onclick="segmentCSV()">save as .csv</button>
-        <button onclick="segmentTXT()">save as .txt</button>
-        </div>
-        <div id="countButtons">
-        <button onclick="countWords()">count</button>
-        <button onclick="countCSV()">save as .csv</button>
-        </div>
-    </div>
+   
     
     <div class="popup" id="myPopupAdd">
             <span class="popuptext" >Dieses Element ist schon vorhanden!</span>
@@ -129,6 +112,15 @@
     <div class="Klammer" id="myPopupKlammer">
             <span class="popuptext" >Die Klammerung in diesem Text ist nicht korrekt. Die Segmentierung der Klammern kann nicht erfolgen.</span>
     </div>    
+
+
+    <script src="javascript/onload.js"></script>
+    <script src="javascript/sidebar.js"></script>
+    <script src="javascript/segmentier.js"></script>
+    <script src="javascript/buttons.js"></script>
+    <script src="javascript/count.js"></script>
+    <script src="javascript/fileInput.js"></script>
+
 
 </body>
 </html>

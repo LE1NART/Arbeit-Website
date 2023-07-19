@@ -162,9 +162,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   align-items: stretch;
 }
 
-#entrySpace,#resultSpace{
+#inputArea, #outputArea{
   flex-grow: 3;
   border:solid;
+  overflow-y: scroll;
 }
 
 #convertSpace{
@@ -173,6 +174,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   justify-content: center;
   align-items: center;
 }
+
+
 
 /* Für die Startseite*/
 .largeIcon{
