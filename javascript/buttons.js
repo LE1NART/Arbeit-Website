@@ -52,7 +52,7 @@ async function segmentAll(){
             
             //segment the text
             text = segmentieren(result.value.result)
-            fileName = userFiles[num].name.slice(0,-4) +"_segmentiert.txt"
+            fileName = userFiles[num].name.slice(0,-4) +"_segmentiert"
             //create a file with the segmentet text
             let file = new File([text],fileName)
 
