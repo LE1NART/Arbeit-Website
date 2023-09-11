@@ -49,9 +49,21 @@ async function segmentAll(){
         if(result.status ==  "fulfilled"){
             
             //TODO : File erstellen, das in die export liste packen, dafür die addVisuell und delete umschreiben, damit das für beide Listen klappt
+            
+            //segment the text
+            text = segmentieren(result.value.result)
+            fileName = userFiles[num].name.slice(0,-4) +"_segmentiert.txt"
+            //create a file with the segmentet text
+            let file = new File([text],fileName)
 
+            exportFiles.push(file)
+            addVisualExportListElement(file)
+            
 
-            result.value.result
+            console.log(result.value.result)
+            console.log(num)
+            console.log(text)
+
 
 
 
@@ -61,4 +73,12 @@ async function segmentAll(){
             alert(`${userFiles[num].name} hat nicht geklappt aufgrund ${result.reason}`);
         }
     })
+}
+
+function downloadAllTXT(){
+    exportFiles.forEach(file => download("txt",file))
+}
+
+function downloadAllCSV(){
+    exportFiles.forEach(file => download("csv",file))
 }

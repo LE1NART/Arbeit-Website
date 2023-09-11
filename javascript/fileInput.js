@@ -4,13 +4,14 @@ input.addEventListener("change", addToInputList);
 
 //File list for InputElement and drag and drop
 const userFiles = [];
+const exportFiles = [];
 
 //adding the Files from the Input element to our own UserFile list
 function addToInputList(){
     const curFiles = input.files;
     if(curFiles.length != 0){
         for(const file of curFiles) {
-            if(checkIfExists(file.name) == false){
+            if(checkIfExists(file.name, userFiles) == false){
                 userFiles.push(file) 
                 addVisualInputListElement(file)
             }
@@ -32,7 +33,7 @@ function dropHandler(ev){
         for(const file of curFiles) {
             if(file.type === "text/plain"){
                 console.log(file)
-                if(checkIfExists(file.name) == false){
+                if(checkIfExists(file.name, userFiles) == false){
                     userFiles.push(file) 
                     addVisualInputListElement(file)
                 }
@@ -43,8 +44,8 @@ function dropHandler(ev){
 }
 
 //checks if the file already exists in FileList
-function checkIfExists(name){
-    for(let file of userFiles){
+function checkIfExists(name, liste){
+    for(let file of liste){
         if(file.name == name){
             return true
         }
@@ -66,7 +67,7 @@ function addVisualInputListElement (file) {
 
     //add DeleteButton Function etc
     deleteButton.classList.add("deleteButton");
-    deleteButton.onclick = function(){deleteInputListElement(deleteButton);}
+    deleteButton.onclick = function(){deleteListElement(deleteButton, userFiles);}
     deleteButton.innerHTML = "Del";
 
     //adds elements to the listelement and add listelement to the list
@@ -76,19 +77,57 @@ function addVisualInputListElement (file) {
     liste.appendChild(listItem);
 
 }
+/*adds for the receiving file an visuell Element in the list with 
+    - name
+    - delete button
+*/
+function addVisualExportListElement (file) {
+    //get liste from html 
+    const liste = document.getElementById("listeOutput")
+    // create listelement, p for name and button for deleteButton
+    const listItem = document.createElement("li");
+    const para = document.createElement("p");
+    const deleteButton = document.createElement("button");
+    const downloadButtonTxt = document.createElement("button");
+    const downloadButtonCSV = document.createElement("button");
+
+    //add DeleteButton Function etc
+    deleteButton.classList.add("deleteButton");
+    deleteButton.onclick = function(){deleteListElement(deleteButton, exportFiles);}
+    deleteButton.innerHTML = "Del";
+
+    //add DownloadButtonTxt function etc
+    downloadButtonTxt.classList.add("downloadButton");
+    downloadButtonTxt.onclick = function(){download("txt",file)}
+    downloadButtonTxt.innerHTML = "Download_txt";
+    //add DownloadButtonCSV function etc
+    downloadButtonCSV.classList.add("downloadButton");
+    downloadButtonCSV.onclick = function(){download("csv",file)}
+    downloadButtonCSV.innerHTML = "Download_csv";
+
+
+    //adds elements to the listelement and add listelement to the list
+    para.textContent = file.name;
+    listItem.appendChild(para);
+    listItem.appendChild(deleteButton);
+    listItem.appendChild(downloadButtonTxt);
+    listItem.appendChild(downloadButtonCSV);
+    liste.appendChild(listItem);
+
+}
 
 
 //function that deletes the listElement, receive button from corresponding listelement
-function deleteInputListElement(button){
+function deleteListElement(button, liste){
     //get listItem over button
     let listItem = button.parentElement;
     //search for the file in file list and remove it from the list
     for(let child of listItem.children){
         if(child.tagName =="P" || child.tagName == "p"){
             let fileName = child.textContent;
-            for(const[index,element] of userFiles.entries()){
+            for(const[index,element] of liste.entries()){
                 if(element.name == fileName){
-                    userFiles.splice(index,1);
+                    liste.splice(index,1);
                 }
             }
             //remove the visuell list element from html list
@@ -134,26 +173,3 @@ function reader(file){
     });
 }
 
-async function start(){
-    /*with Promise.allSettled we resolve all promises in the array
-    as
-    - {status:"fulfilled", value:result} for successful responses,
-    - {status:"rejected", reason:error} for errors.
-    */
-    let results = await Promise.allSettled(userFiles.map(file =>reader(file)));
-
-    //now for every result
-    results.forEach((result,num) =>{
-        if(result.status ==  "fulfilled"){
-            //if the result was succesfull we log the value
-            console.log(result)
-            console.log(result.value);
-            console.log(result.value.result)
-            test();
-        }
-        if(result.status == "rejected"){
-            //if it does not work we get an alert
-            alert(`${userFiles[num].name} hat nicht geklappt aufgrund ${result.reason}`);
-        }
-    })
-}
