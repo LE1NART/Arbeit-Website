@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/indexTable.css">
+    
+
+
+
+</head>
+<body onload="createPremadeTable()">
+    <header>
+        <a href="https://www.uni-potsdam.de/de/physikdidaktik/willkommen"><img src="media/logo_grey.jpg" alt="Logo" id="logo"></a>
+        <nav>
+            <a href="./index.html">Start</a>
+            <a href="./solo.html">Einzel</a>
+            <a href="./multi.html">Mehrzahl</a>
+            <a href="./table.html">Tabelle</a>        
+        </nav>
+    </header>
+
+    <div class="table-content">
+        <div>
+            <h1>Content Representation</h1>
+            <p>Bearbeiten Sie die Content Representation indem Sie... <br>
+            <ol>
+             <li>... auf Grundlage Ihres fachlichen Wissens die Big Ideas einer Thematik identifizieren und als Keywords in der ersten Zeile festhalten und</li>
+             <li>... die Big Ideas vor dem Hintergrund Ihres pädagogischen und fachdidaktischen Wissens entlang der Leitfragen spaltenweise diskutieren. </li>
+            </ol>
+            (Es empfiehlt sich Gedanken in ausführlichen Stichpunkten oder vollständigen Sätzen festzuhalten.)</p>
+        </div>
+        <div class="button-area">
+            <div><input class="input-container" type="number" id="deletionInput" name="quantity" min="1" placeholder="Index of deletion"></div>
+            <div><button onclick="deleteRow()">Delete Row</button></div>
+            <div><button onclick="deleteColumn()">Delete Column</button></div>
+            <div><button onclick="addRow()">Add 1 Row</button></div>
+            <div><button onclick="addColumn()">Add 1 Column</button></div>
+        </div>
+    </div>
+    <div>
+        <table id="myTable">
+        </table>
+    </div>
+    <div class="buttons">
+        <div id="segmentButtons">
+        <button onclick="workInProgress()"> submit</button>
+        <button onclick="fragebogenZuCSV()"> save as .csv</button>
+        <button onclick="fragebogenZuTXT()"> save as .txt</button>
+        </div>
+    </div>   
+
+    <div class="popup" id="popupWorkInProgress">
+        <span class="popuptext" >Diese Funktion ist noch nicht verfügbar.</span>
+    </div>
+    
+
+    <script src="./javascript/buttons.js"></script>
+    <script src="./javascript/tableCreator.js"></script>
+
+</body>
+</html>

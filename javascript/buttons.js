@@ -82,3 +82,28 @@ function downloadAllTXT(){
 function downloadAllCSV(){
     exportFiles.forEach(file => download("csv",file))
 }
+
+//writtenByChris
+function fragebogenZuTXT(){
+    let table = document.getElementById("myTable");
+    let tableString = "";
+    for (let i = 0, row; row = table.rows[i]; i++){
+        for (let j = 0, col; col = row.cells[j]; j++){
+            tableString += col.textContent + '; ';
+        }
+        tableString += "\n";
+      }
+    let file = new File([tableString],"fragebogentabelle")
+    download("txt",file)
+  }
+ //writtenByChris 
+  function fragebogenZuCSV(){
+    let rowStrings = [];
+    for (let i = 0, row; row = tableData[i]; i++){
+        rowStrings.push( row.join(";") );
+    }
+    let tableString = rowStrings.join("\n")
+
+    let file = new File([tableString],"fragebogentabelle")
+    download("csv",file)
+  }
