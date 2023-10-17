@@ -36,6 +36,10 @@ function createPremadeTable(){
     input.setAttribute("type", "text");
     input.setAttribute("class", "header-input");
     input.setAttribute("placeholder", "Big Idea " + i);
+    //two lines added by Linus
+    input.setAttribute("id", i);
+    input.addEventListener("change", updateValue);
+
     th.appendChild(input);
     headerRow.appendChild(th);
     rowData.push("");
@@ -63,6 +67,13 @@ function createPremadeTable(){
     tableData.push(rowData);
   }
 
+}
+
+function updateValue(e){
+  console.log(e.target.id)
+  console.log(e.target.value)
+
+  tableData[0][e.target.id] = e.target.value
 }
 
 
@@ -162,6 +173,10 @@ function addColumn() {
   input.setAttribute("type", "text");
   input.setAttribute("class", "header-input");
   input.setAttribute("placeholder", "New Column");
+  //two lines added by Linus
+  input.setAttribute("id", columns);
+  input.addEventListener("change", updateValue);
+
   th.appendChild(input);
 
   tableData[0].push("");

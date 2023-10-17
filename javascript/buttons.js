@@ -89,7 +89,13 @@ function fragebogenZuTXT(){
     let tableString = "";
     for (let i = 0, row; row = table.rows[i]; i++){
         for (let j = 0, col; col = row.cells[j]; j++){
-            tableString += col.textContent + '; ';
+            //added special case for columnheader so we get the value, by Linus
+            if(i==0 && j >0){
+                tableString += col.firstChild.value+ '; ';
+            }
+            else{
+                tableString += col.textContent + '; ';
+            }
         }
         tableString += "\n";
       }
