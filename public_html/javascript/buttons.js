@@ -48,7 +48,7 @@ async function segmentAll(){
     results.forEach((result,num) =>{
         if(result.status ==  "fulfilled"){
             
-            //TODO : File erstellen, das in die export liste packen, dafür die addVisuell und delete umschreiben, damit das für beide Listen klappt
+        
             
             //segment the text
             text = segmentieren(result.value.result)
@@ -81,6 +81,28 @@ function downloadAllTXT(){
 
 function downloadAllCSV(){
     exportFiles.forEach(file => download("csv",file))
+}
+
+function fragebogenZuSubmit(){
+    let rowStrings = [];
+    for (let i = 0, row; row = tableData[i]; i++){
+        rowStrings.push( row.join(";") );
+    }
+    let tableString = rowStrings.join("\n")
+
+    let input = document.getElementById("uploadFile");
+    input.value = tableString;
+
+}
+
+function uploadWindow(){
+    const popup = document.getElementById("uploadConfirmWindow");
+    if(popup.style.visibility == 'hidden'){
+        popup.style.visibility = 'visible';
+    }
+    else{
+        popup.style.visibility = "hidden";
+    }
 }
 
 //writtenByChris

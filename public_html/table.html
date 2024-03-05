@@ -50,7 +50,7 @@
     </div>
     <div class="buttons">
         <div id="segmentButtons">
-        <button onclick="workInProgress()"> submit</button>
+        <button onclick="uploadWindow()">Upload</button>
         <button onclick="fragebogenZuCSV()"> save as .csv</button>
         <button onclick="fragebogenZuTXT()"> save as .txt</button>
         </div>
@@ -60,6 +60,15 @@
         <span class="popuptext" >Diese Funktion ist noch nicht verfügbar.</span>
     </div>
     
+    <div class="uploadConfirm" id="uploadConfirmWindow">
+        <h3>Upload Bestätigung</h3>
+        <p>Zum Upload wird ein weiteres Fenster geöffnet.</p>
+        <form action="/cgi-bin/upload.py" method="post" enctype="multipart/form-data" onsubmit="uploadWindow()">
+            <input id="uploadFile" type="hidden" name="file" value=""/>
+            <input id="uploadButton" type="submit" value="Upload" formtarget="_blank"/>
+        </form>
+    </div>
+
 
     <script src="./javascript/buttons.js"></script>
     <script src="./javascript/tableCreator.js"></script>
